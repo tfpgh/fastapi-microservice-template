@@ -9,49 +9,6 @@ This template supports being run:
 
 ---
 
-## Documentation Links
-
-**If you want to skip down to the Get Started section, [here you go!](#get-started)**
-
-### Libraries
-
--   [FastAPI](https://fastapi.tiangolo.com/) (Web framework)
-    -   [Starlette](https://www.starlette.io/) (ASGI toolkit FastAPI builds on)
--   [pydantic](https://pydantic-docs.helpmanual.io/) (Data validation)
--   [Mangum](https://mangum.io/) (ASGI adapter for Lambda)
--   [Loguru](https://loguru.readthedocs.io/en/stable/index.html) (Logging)
-
-### Deployment
-
--   [uvicorn](https://www.uvicorn.org/)
--   [Serverless Framework](https://www.serverless.com/framework/docs)
-    -   [Serverless Python Requirements](https://github.com/serverless/serverless-python-requirements) (Dependency management)
-    -   [Docker](https://docs.docker.com/)
--   [AWS](https://docs.aws.amazon.com/) (Cloud provider)
-    -   [Lambda](https://docs.aws.amazon.com/lambda/) (Serverless host)
-    -   [IAM](https://docs.aws.amazon.com/iam/) (AWS permissions)
-    -   [CloudFormation](https://docs.aws.amazon.com/cloudformation/) (Syntax used in Serverless config)
-    -   [API Gateway](https://docs.aws.amazon.com/apigateway/)
-    -   [CLI](https://docs.aws.amazon.com/cli/)
-
-### [pre-commit](#pre-commit)/[Formatting](#formatting)
-
--   [pre-commit](https://pre-commit.com/) (pre-commit hook management)
-    -   [pre-commit-hooks](https://github.com/pre-commit/pre-commit-hooks) (Out of the box hooks)
--   [Black](https://black.readthedocs.io/en/stable/) (Code formatting)
--   [isort](https://pycqa.github.io/isort/) (Import sorting)
--   [Flake8](https://flake8.pycqa.org/en/latest/) (Linting)
--   [mypy](https://mypy.readthedocs.io/en/stable/) (Type checking)
-
-### Other
-
--   [Python 3.9](https://docs.python.org/3.9/reference/)
-    -   [venv](https://docs.python.org/3.9/library/venv.html) (Virtual enviroment management)
--   [pip](https://pip.pypa.io/en/stable/) (Python package management)
--   [npm](https://docs.npmjs.com/) (Node package management)
-
----
-
 ## Get Started
 
 You're going to need a couple of prerequisites:
@@ -112,6 +69,96 @@ On both platforms, if you wish to deactivate the virtual enviroment run:
 
 Everytime you open a new terminal you'll need to activate the virtual enviroment.
 
+---
+
+### Deploying
+
+To deploy your application to Lambda, first install the latest `serverless` CLI. This can be done by running:
+
+```zsh
+~ npm install -g serverless
+```
+
+Then, you need to get your AWS key and secret from the dashboard. A guide to do that can be found [here](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys). Configure them with the `serverless` CLI by running:
+
+```zsh
+~ serverless config credentials --provider aws --key [Insert Key Here] --secret [Insert Secret Here]
+```
+---
+
+Now you're ready to deploy! With Docker running, run:
+
+```zsh
+~ sls deploy
+```
+
+The first time, this command can take up to 15 minutes to complete. Once it's done you can access your app at the link printed in the console.
+
+---
+
+### Running Locally
+
+To run your microservice locally you either need to create a new `.env.local` file for your local configuration, or use a `.env` file for an existing stage. To use an enviroment file, the enviroment variable `STAGE` must be set to the stage of the file. For example:
+
+If you want to use the `.env.staging` enviroment run the following on MacOS and Linux:
+```zsh
+~ export STAGE=staging
+```
+
+On Windows:
+```cmd
+> set STAGE=staging
+```
+
+Then run uvicorn from the root of your project using:
+
+```zsh
+~ uvicorn app.main:app --reload
+```
+
+This will host your API on `localhost` bound to port `8000` by default. When you update and save a file it will automatically reload.
+
+---
+
+### Libraries
+
+-   [FastAPI](https://fastapi.tiangolo.com/) (Web framework)
+    -   [Starlette](https://www.starlette.io/) (ASGI toolkit FastAPI builds on)
+-   [pydantic](https://pydantic-docs.helpmanual.io/) (Data validation)
+-   [Mangum](https://mangum.io/) (ASGI adapter for Lambda)
+-   [Loguru](https://loguru.readthedocs.io/en/stable/index.html) (Logging)
+
+### Deployment
+
+-   [uvicorn](https://www.uvicorn.org/)
+-   [Serverless Framework](https://www.serverless.com/framework/docs)
+    -   [Serverless Python Requirements](https://github.com/serverless/serverless-python-requirements) (Dependency management)
+    -   [Docker](https://docs.docker.com/)
+-   [AWS](https://docs.aws.amazon.com/) (Cloud provider)
+    -   [Lambda](https://docs.aws.amazon.com/lambda/) (Serverless host)
+    -   [IAM](https://docs.aws.amazon.com/iam/) (AWS permissions)
+    -   [CloudFormation](https://docs.aws.amazon.com/cloudformation/) (Syntax used in Serverless config)
+    -   [API Gateway](https://docs.aws.amazon.com/apigateway/)
+    -   [CLI](https://docs.aws.amazon.com/cli/)
+
+### [pre-commit](#pre-commit)/[Formatting](#formatting)
+
+-   [pre-commit](https://pre-commit.com/) (pre-commit hook management)
+    -   [pre-commit-hooks](https://github.com/pre-commit/pre-commit-hooks) (Out of the box hooks)
+-   [Black](https://black.readthedocs.io/en/stable/) (Code formatting)
+-   [isort](https://pycqa.github.io/isort/) (Import sorting)
+-   [Flake8](https://flake8.pycqa.org/en/latest/) (Linting)
+-   [mypy](https://mypy.readthedocs.io/en/stable/) (Type checking)
+
+### Other
+
+-   [Python 3.9](https://docs.python.org/3.9/reference/)
+    -   [venv](https://docs.python.org/3.9/library/venv.html) (Virtual enviroment management)
+-   [pip](https://pip.pypa.io/en/stable/) (Python package management)
+-   [npm](https://docs.npmjs.com/) (Node package management)
+
+---
+
 ### Code Structure
 
 Feel free to modify the layout of the repo as much as you want but the given structure is as follows:
@@ -169,50 +216,7 @@ Now, you might want to spend a little bit of time starting at `main.py` and look
 
 Now would be a good time to replace the first line of `serverless.yml` with `service: [Insert App Name Here]`.
 
-### Running Locally
-
-To run your microservice locally you either need to create a new `.env.local` file for your local configuration, or use a `.env` file for an existing stage. To use an enviroment file, the enviroment variable `STAGE` must be set to the stage of the file. For example:
-
-If you want to use the `.env.staging` enviroment run the following on MacOS and Linux:
-```zsh
-~ export STAGE=staging
-```
-
-On Windows:
-```cmd
-> set STAGE=staging
-```
-
-Then run uvicorn from the root of your project using:
-
-```zsh
-~ uvicorn app.main:app --reload
-```
-
-This will host your API on `localhost` bound to port `8000` by default. When you update and save a file it will automatically reload.
-
-### Deploying
-
-To deploy your application to Lambda, first install the latest `serverless` CLI. This can be done by running:
-
-```zsh
-~ npm install -g serverless
-```
-
-Then, you need to get your AWS key and secret from the dashboard. A guide to do that can be found [here](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys). Configure them with the `serverless` CLI by running:
-
-```zsh
-~ serverless config credentials --provider aws --key [Insert Key Here] --secret [Insert Secret Here]
-```
 ---
-
-Now you're ready to deploy! With Docker running, run:
-
-```zsh
-~ sls deploy
-```
-
-The first time, this command can take up to 15 minutes to complete. Once it's done you can access your app at the link printed in the console.
 
 ## Formatting
 
