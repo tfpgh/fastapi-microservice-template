@@ -1,0 +1,33 @@
+service: fastapi-microservice-template
+
+frameworkVersion: "3"
+
+configValidationMode: error
+useDotenv: true
+deprecationNotificationMode: warn:summary
+
+plugins:
+    - serverless-python-requirements
+
+custom:
+    pythonRequirements:
+        dockerizePip: true
+
+provider:
+    name: aws
+    stage: ${opt:stage, "staging"}
+    region: us-west-2
+    runtime: python3.9
+    memorySize: 1024
+
+    httpApi:
+        cors: true
+
+functions:
+    app:
+        handler: app/main.handler
+        enviroment:
+            STAGE: ${self:provider.stage}
+        events:
+            - httpApi:
+                  path: "*"
