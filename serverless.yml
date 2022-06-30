@@ -23,11 +23,12 @@ provider:
     httpApi:
         cors: true
 
+    environment:
+        STAGE: ${self:provider.stage}
+
 functions:
     app:
         handler: app/main.handler
-        enviroment:
-            STAGE: ${self:provider.stage}
         events:
             - httpApi:
                   path: "*"
