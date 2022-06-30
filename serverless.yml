@@ -12,6 +12,7 @@ plugins:
 custom:
     pythonRequirements:
         dockerizePip: true
+        dockerImage: mlupin/docker-lambda:python3.9-build
 
 provider:
     name: aws
