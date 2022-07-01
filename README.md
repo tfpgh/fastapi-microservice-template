@@ -112,6 +112,14 @@ On both platforms, if you wish to deactivate the virtual enviroment run:
 
 Everytime you open a new terminal you'll need to activate the virtual enviroment.
 
+### Dependencies
+
+To start, you'll need to install the provided dependencies. This can be done by running:
+
+```zsh
+(venv) ~ pip install -r dev-requirements.txt
+```
+
 ### Code Structure
 
 Feel free to modify the layout of the repo as much as you want but the given structure is as follows:
