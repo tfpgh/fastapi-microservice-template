@@ -5,6 +5,7 @@ This is an opinionated template for a [FastAPI](https://fastapi.tiangolo.com/) b
 This template supports being run:
 
 -   Locally using [uvicorn](https://www.uvicorn.org/)
+-   Through Docker with uvicorn (optionally run through [Gunicorn](https://gunicorn.org/))
 -   As a Serverless Framework application deployed to AWS Lambda
 
 ---
@@ -24,6 +25,7 @@ This template supports being run:
 ### Deployment
 
 -   [uvicorn](https://www.uvicorn.org/)
+-   [Gunicorn](https://docs.gunicorn.org/en/stable/)
 -   [Serverless Framework](https://www.serverless.com/framework/docs)
     -   [Serverless Python Requirements](https://github.com/serverless/serverless-python-requirements) (Dependency management)
     -   [Docker](https://docs.docker.com/)
@@ -198,6 +200,44 @@ Then run uvicorn from the root of your project using:
 ```
 
 This will host your API on `localhost` bound to port `8000` by default. When you update and save a file it will automatically reload.
+
+### Running With Docker
+
+While this template primarily supports running serverlessly, it can also be run with Docker. There are two independent Dockerfiles to support this: One where uvicorn is used on its own for use running on a cluster, and one which runs multiple uvicorn workers through Gunicorn for use on a single server or locally.
+
+#### On a Cluster
+
+In short, if you have some sort of cluster of machines running Docker containers, you will likely want to create multiple Docker containers instead of running multiple uvicorn instances in one. To do this you can use the Dockerfile at `docker/cluster/Dockerfile`.
+
+With Docker running, build the image by running:
+
+```zsh
+~ docker build -t my-image -f docker/cluster/Dockerfile ./
+```
+**Note:** You can change the name of the image by replacing `my-cluster-image` with whatever you want.
+
+Now you have an image which you can run by whatever mechanism you wish. You will have to expose port 80 and specify the `.env` file you want to use. To run it detached locally with the `.env.staging` file run:
+
+```zsh
+~ docker run -d -p 80:80 --env-file .env.staging my-cluster-image
+```
+
+#### On a Server
+
+If you are running your Docker container on a single server or locally, you will likely want to use the Dockerfile at `docker/server/Dockerfile. This file uses the base Dockerfile by [tiangolo](https://github.com/tiangolo) found [here](https://github.com/tiangolo/uvicorn-gunicorn-fastapi-docker). It will use Gunicorn to start some number of uvicorn workers. That number will be determined automatically by the number of cores the system has.
+
+With Docker running, build the image by running:
+
+```zsh
+~ docker build -t my-server-image -f docker/server/Dockerfile ./
+```
+**Note:** You can change the name of the image by replacing `my-server-image` with whatever you want.
+
+Now you have an image which can again be run any way you wish. Just make sure you expose port 80 and specify the `.env` file you want to use. To run it detached locally with the `.env.staging` file run:
+
+```zsh
+~ docker run -p 80:80 --env-file .env.staging my-server-image
+```
 
 ### Deploying
 
