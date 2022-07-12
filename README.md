@@ -247,6 +247,12 @@ To deploy your application to Lambda, first install the latest `serverless` CLI.
 ~ npm install -g serverless
 ```
 
+You will also need to install any other serverless dependencies with:
+
+```zsh
+~ npm install
+```
+
 Then, you need to get your AWS key and secret from the dashboard. A guide to do that can be found [here](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys). Configure them with the `serverless` CLI by running:
 
 ```zsh
