@@ -31,4 +31,4 @@ repos:
       hooks:
           - id: mypy
             additional_dependencies:
-                - FastAPI==0.78.0
+                - FastAPI==0.79.0
