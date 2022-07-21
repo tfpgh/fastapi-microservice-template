@@ -2,34 +2,26 @@ service: fastapi-microservice-template
 
 frameworkVersion: "3"
 
-configValidationMode: error
-useDotenv: true
-deprecationNotificationMode: warn:summary
-
-plugins:
-    - serverless-python-requirements
-
-custom:
-    pythonRequirements:
-        dockerizePip: true
-        dockerImage: mlupin/docker-lambda:python3.9-build
-
 provider:
     name: aws
-    stage: ${opt:stage, "staging"}
-    region: us-west-2
-    runtime: python3.9
-    memorySize: 1024
+    region: ${opt:region, 'us-west-1'}
+    stage: ${opt:stage, 'dev'}
+    ecr:
+        images:
+            appimage:
+                path: ./
+                file: Dockerfile.lambda
+                platform: linux/amd64
 
     httpApi:
         cors: true
-
     environment:
         STAGE: ${self:provider.stage}
-
+    
 functions:
     app:
-        handler: app/main.handler
+        image:
+            name: appimage
         events:
             - httpApi:
                   path: "*"
