@@ -14,7 +14,7 @@ repos:
           - id: requirements-txt-fixer
           - id: forbid-new-submodules
     - repo: https://github.com/psf/black
-      rev: 22.6.0
+      rev: 22.8.0
       hooks:
           - id: black
             language_version: python3.9
