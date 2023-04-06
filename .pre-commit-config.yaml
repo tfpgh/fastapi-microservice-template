@@ -14,7 +14,7 @@ repos:
           - id: requirements-txt-fixer
           - id: forbid-new-submodules
     - repo: https://github.com/psf/black
-      rev: 23.1.0
+      rev: 23.3.0
       hooks:
           - id: black
             language_version: python3.9
@@ -27,8 +27,8 @@ repos:
       hooks:
           - id: isort
     - repo: https://github.com/pre-commit/mirrors-mypy
-      rev: "v1.0.1"
+      rev: "v1.1.1"
       hooks:
           - id: mypy
             additional_dependencies:
-                - FastAPI==0.87.0
+                - FastAPI==0.95.0
