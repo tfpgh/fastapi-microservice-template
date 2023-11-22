@@ -16,6 +16,6 @@ stage = os.environ.get("STAGE")
 if not stage:
     config = Config()
 else:
-    config = Config(_env_file=f".env.{stage.lower()}", _env_file_encoding="utf-8")
+    config = Config(_env_file=f".env.{stage.lower()}", _env_file_encoding="utf-8")  # type: ignore[call-arg]
 
 logger.info(f"Config: {config}")
