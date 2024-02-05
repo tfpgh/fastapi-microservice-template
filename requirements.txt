@@ -1,4 +1,4 @@
-fastapi==0.99.1
+fastapi==0.109.2
 loguru==0.7.2
 mangum==0.17.0
 python-dotenv==1.0.0
