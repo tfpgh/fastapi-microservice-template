@@ -5,4 +5,4 @@ flake8==6.1.0
 isort==5.13.2
 mypy==1.7.1
 pre-commit==3.6.0
-uvicorn[standard]==0.24.0.post1
+uvicorn[standard]==0.28.0
