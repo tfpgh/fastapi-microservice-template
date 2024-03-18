@@ -14,20 +14,20 @@ repos:
       - id: requirements-txt-fixer
       - id: forbid-new-submodules
   - repo: https://github.com/psf/black
-    rev: 23.11.0
+    rev: 24.3.0
     hooks:
       - id: black
         language_version: python3.9
   - repo: https://github.com/pycqa/flake8
-    rev: 6.1.0
+    rev: 7.0.0
     hooks:
       - id: flake8
   - repo: https://github.com/pycqa/isort
-    rev: 5.13.1
+    rev: 5.13.2
     hooks:
       - id: isort
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: "v1.7.1"
+    rev: "v1.9.0"
     hooks:
       - id: mypy
         additional_dependencies:
